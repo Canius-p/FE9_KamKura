@@ -5,6 +5,10 @@ import path from "path";
 import fileUpload from "express-fileupload";
 import cookieParser from "cookie-parser";
 
+import userRouter from "./routes/user.router";
+import jobRouter from "./routes/job.router";
+import applicationRouter from "./routes/application.router";
+import { connectDatabase } from "./database/connect.database";
 const app = express();
 dotenv.config({ path: "../../Backend/" });
 
@@ -20,6 +24,8 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+//database connection
+connectDatabase(process.env.MONGO_URI);
 app.use(
   fileUpload({
     useTempFiles: true,
@@ -30,5 +36,8 @@ app.use(
 app.get("/", (req, res) => {
   res.send("Hello, World!");
 });
+app.use("/api/user", userRouter);
+app.use("/api/job", jobRouter);
+app.use("/api/application", applicationRouter);
 
 export default app;
