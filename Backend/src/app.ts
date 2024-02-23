@@ -25,7 +25,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 //database connection
-connectDatabase(process.env.MONGO_URI);
+const URI = process.env.MONGO_URI;
+connectDatabase(URI!);
+
 app.use(
   fileUpload({
     useTempFiles: true,
