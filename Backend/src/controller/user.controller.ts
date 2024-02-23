@@ -16,5 +16,9 @@ export const register = catchAsync(async (req: any, res: any, next: any) => {
     email,
     password,
   });
-  sendToken(user, 201, res);
+  res.status(200).json({
+    success: true,
+    message: "User created successfully",
+    user,
+  });
 });
