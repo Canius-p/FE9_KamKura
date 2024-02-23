@@ -1,4 +1,4 @@
-import { ErrorRequestHandler, NextFunction } from "express";
+import { Request, NextFunction, Response } from "express";
 
 class ErrorHandler extends Error {
   statusCode: number;
@@ -21,7 +21,7 @@ export const errorMiddleware = (
     err = new ErrorHandler(message, 400);
   }
   if (err.code === 11000) {
-    const message = `Duplicate ${Object.keys(err.keyValue)} entered`;
+    const message = `Duplicate ${Object.keys(err.keyValue)} Entered`;
     err = new ErrorHandler(message, 400);
   }
   if (err.name === "jsonwebtokenError") {
@@ -37,3 +37,5 @@ export const errorMiddleware = (
     message: err.message,
   });
 };
+
+export default ErrorHandler;

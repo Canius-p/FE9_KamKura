@@ -55,6 +55,9 @@ devDependencies:
   '@types/node':
     specifier: ^20.11.19
     version: 20.11.19
+  '@types/validator':
+    specifier: ^13.11.9
+    version: 13.11.9
 
 packages:
 
@@ -197,6 +200,10 @@ packages:
       '@types/http-errors': 2.0.4
       '@types/mime': 3.0.4
       '@types/node': 20.11.19
+    dev: true
+
+  /@types/validator@13.11.9:
+    resolution: {integrity: sha512-FCTsikRozryfayPuiI46QzH3fnrOoctTjvOYZkho9BTFLCOZ2rgZJHMOVgCOfttjPJcgOx52EpkY0CMfy87MIw==}
     dev: true
 
   /@types/webidl-conversions@7.0.3:

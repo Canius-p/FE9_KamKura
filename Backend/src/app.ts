@@ -1,3 +1,4 @@
+//reminder to change hash to 10
 import express from "express";
 import * as dotenv from "dotenv";
 import cors from "cors";
@@ -9,6 +10,7 @@ import userRouter from "./routes/user.router";
 import jobRouter from "./routes/job.router";
 import applicationRouter from "./routes/application.router";
 import { connectDatabase } from "./database/connect.database";
+import { errorMiddleware } from "./middleware/error.handle";
 const app = express();
 dotenv.config({ path: "../../Backend/" });
 
@@ -42,4 +44,5 @@ app.use("/api/user", userRouter);
 app.use("/api/job", jobRouter);
 app.use("/api/application", applicationRouter);
 
+app.use(errorMiddleware);
 export default app;
