@@ -3,7 +3,7 @@ import validator from "validator";
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
 
-const userScheme = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
   name: {
     type: String,
     required: [true, "Please provide a name"],
@@ -44,7 +44,7 @@ const userScheme = new mongoose.Schema({
 });
 
 //hasing the pass
-userScheme.pre("save", async function (next) {
+userSchema.pre("save", async function (next) {
   if (this.isModified("password")) {
     next();
   }
@@ -53,13 +53,18 @@ userScheme.pre("save", async function (next) {
 
 //comparing passowrds
 
-userScheme.methods.comparePassword = async function (enteredPassword: any) {
+userSchema.methods.comparePassword = async function (enteredPassword: any) {
   return await bcryptjs.compare(enteredPassword, this.password);
 };
 
 //generate jwt token
-userScheme.methods.getJwtToken = function () {
+userSchema.methods.getJwtToken = function () {
+  if (!process.env.JWT_SECRET) {
+    throw new Error("JWT_SECRET is not defined");
+  }
   return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRES,
   });
 };
+
+export const User = mongoose.model("User", userSchema);
